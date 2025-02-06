@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e-shop.console", "e-shop.console\e-shop.console.csproj", "{CCAE3A40-DEA6-4CBC-8E45-6D63C3DDFAB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e-shop.Domain", "e-shop.Domain\e-shop.Domain.csproj", "{80492BFA-DF56-4933-86A9-A9D8E929F9B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e-shop.DataAccess", "e-shop.DataAccess\e-shop.DataAccess.csproj", "{7C902B27-942F-4EAD-B7C9-34F6908B4EB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCAE3A40-DEA6-4CBC-8E45-6D63C3DDFAB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCAE3A40-DEA6-4CBC-8E45-6D63C3DDFAB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCAE3A40-DEA6-4CBC-8E45-6D63C3DDFAB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCAE3A40-DEA6-4CBC-8E45-6D63C3DDFAB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80492BFA-DF56-4933-86A9-A9D8E929F9B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80492BFA-DF56-4933-86A9-A9D8E929F9B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80492BFA-DF56-4933-86A9-A9D8E929F9B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80492BFA-DF56-4933-86A9-A9D8E929F9B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C902B27-942F-4EAD-B7C9-34F6908B4EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C902B27-942F-4EAD-B7C9-34F6908B4EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C902B27-942F-4EAD-B7C9-34F6908B4EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C902B27-942F-4EAD-B7C9-34F6908B4EB5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
