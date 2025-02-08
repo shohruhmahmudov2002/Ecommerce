@@ -12,10 +12,14 @@ namespace e_shop.DataAccess
         {
             Database.EnsureCreated();
         }
+        //public ShopContext(DbContextOptions<ShopContext> options) : base(options) { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(_connectionString)
+            if(!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseNpgsql(_connectionString)
                 .UseSnakeCaseNamingConvention();
+            }
         }
     }
 }

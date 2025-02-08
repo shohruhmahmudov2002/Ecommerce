@@ -12,7 +12,7 @@ using e_shop.DataAccess;
 namespace e_shop.DataAccess.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20250206112504_InitialMigration")]
+    [Migration("20250206125254_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
