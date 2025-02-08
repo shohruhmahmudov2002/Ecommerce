@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using e_shop.DataAccess;
@@ -11,9 +12,11 @@ using e_shop.DataAccess;
 namespace e_shop.DataAccess.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20250208120824_AddedCard")]
+    partial class AddedCard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,9 +73,6 @@ namespace e_shop.DataAccess.Migrations
 
                     b.HasIndex("CardID")
                         .HasDatabaseName("ix_card_items_card_id");
-
-                    b.HasIndex("ProductID")
-                        .HasDatabaseName("ix_card_items_product_id");
 
                     b.ToTable("card_items", (string)null);
                 });
@@ -335,22 +335,13 @@ namespace e_shop.DataAccess.Migrations
             modelBuilder.Entity("e_shop.Domain.Entities.CardItem", b =>
                 {
                     b.HasOne("e_shop.Domain.Entities.Card", "Cards")
-                        .WithMany("CardItems")
+                        .WithMany()
                         .HasForeignKey("CardID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_card_items_cards_card_id");
 
-                    b.HasOne("e_shop.Domain.Entities.Product", "Products")
-                        .WithMany()
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_card_items_products_product_id");
-
                     b.Navigation("Cards");
-
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("e_shop.Domain.Entities.CustomerAddress", b =>
@@ -363,11 +354,6 @@ namespace e_shop.DataAccess.Migrations
                         .HasConstraintName("fk_customer_addresses_customers_customer_id");
 
                     b.Navigation("Customers");
-                });
-
-            modelBuilder.Entity("e_shop.Domain.Entities.Card", b =>
-                {
-                    b.Navigation("CardItems");
                 });
 
             modelBuilder.Entity("e_shop.Domain.Entities.Customer", b =>

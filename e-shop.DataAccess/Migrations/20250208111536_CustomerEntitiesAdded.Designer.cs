@@ -12,8 +12,8 @@ using e_shop.DataAccess;
 namespace e_shop.DataAccess.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20250206125254_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250208111536_CustomerEntitiesAdded")]
+    partial class CustomerEntitiesAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,8 @@ namespace e_shop.DataAccess.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("category_name");
 
                     b.Property<DateTime>("CreatedAt")
@@ -82,6 +83,113 @@ namespace e_shop.DataAccess.Migrations
                         .HasName("pk_categories");
 
                     b.ToTable("categories", (string)null);
+                });
+
+            modelBuilder.Entity("e_shop.Domain.Entities.Customer", b =>
+                {
+                    b.Property<int>("CustomerID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("customer_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustomerID"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("email");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("first_name");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("last_name");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("password");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("phone_number");
+
+                    b.Property<DateTime>("RegisteredAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("registered_at");
+
+                    b.HasKey("CustomerID")
+                        .HasName("pk_customers");
+
+                    b.ToTable("customers", (string)null);
+                });
+
+            modelBuilder.Entity("e_shop.Domain.Entities.CustomerAddress", b =>
+                {
+                    b.Property<int>("CustomerAddressID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("customer_address_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustomerAddressID"));
+
+                    b.Property<string>("AddressLine1")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("address_line1");
+
+                    b.Property<string>("AddressLine2")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("address_line2");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("city");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("country");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("integer")
+                        .HasColumnName("customer_id");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("phone_number");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("postal_code");
+
+                    b.HasKey("CustomerAddressID")
+                        .HasName("pk_customer_addresses");
+
+                    b.HasIndex("CustomerID")
+                        .HasDatabaseName("ix_customer_addresses_customer_id");
+
+                    b.ToTable("customer_addresses", (string)null);
                 });
 
             modelBuilder.Entity("e_shop.Domain.Entities.Product", b =>
@@ -158,6 +266,23 @@ namespace e_shop.DataAccess.Migrations
                         .HasName("pk_products");
 
                     b.ToTable("products", (string)null);
+                });
+
+            modelBuilder.Entity("e_shop.Domain.Entities.CustomerAddress", b =>
+                {
+                    b.HasOne("e_shop.Domain.Entities.Customer", "Customers")
+                        .WithMany("CustomerAddresses")
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_customer_addresses_customers_customer_id");
+
+                    b.Navigation("Customers");
+                });
+
+            modelBuilder.Entity("e_shop.Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("CustomerAddresses");
                 });
 #pragma warning restore 612, 618
         }

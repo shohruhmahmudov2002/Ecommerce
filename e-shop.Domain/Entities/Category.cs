@@ -10,12 +10,16 @@ namespace e_shop.Domain.Entities;
 public class Category
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("category_id")]
     public int CategoryID { get; set; }
     [Column("parent_id")]
     public int ParentID { get; set; }
     [Column("category_name")]
-    public string CategoryName { get; set; }
+    [Required]
+    [StringLength(50, MinimumLength = 10, ErrorMessage = "Category name exceeded the limit")]
+    //[MaxLength(50, ErrorMessage = "Category name exceeded the limit")]
+    public string? CategoryName { get; set; }
     [Column("category_description")]
     public string CategoryDescription { get; set; }
     [Column("icon")]

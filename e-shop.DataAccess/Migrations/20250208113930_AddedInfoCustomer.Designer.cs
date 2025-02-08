@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using e_shop.DataAccess;
@@ -11,9 +12,11 @@ using e_shop.DataAccess;
 namespace e_shop.DataAccess.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20250208113930_AddedInfoCustomer")]
+    partial class AddedInfoCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,61 +24,6 @@ namespace e_shop.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("e_shop.Domain.Entities.Card", b =>
-                {
-                    b.Property<int>("CardID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("card_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CardID"));
-
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("integer")
-                        .HasColumnName("customer_id");
-
-                    b.HasKey("CardID")
-                        .HasName("pk_cards");
-
-                    b.HasIndex("CustomerID")
-                        .HasDatabaseName("ix_cards_customer_id");
-
-                    b.ToTable("cards", (string)null);
-                });
-
-            modelBuilder.Entity("e_shop.Domain.Entities.CardItem", b =>
-                {
-                    b.Property<int>("CardItemID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("card_item_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CardItemID"));
-
-                    b.Property<int>("CardID")
-                        .HasColumnType("integer")
-                        .HasColumnName("card_id");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("integer")
-                        .HasColumnName("product_id");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quantity");
-
-                    b.HasKey("CardItemID")
-                        .HasName("pk_card_items");
-
-                    b.HasIndex("CardID")
-                        .HasDatabaseName("ix_card_items_card_id");
-
-                    b.HasIndex("ProductID")
-                        .HasDatabaseName("ix_card_items_product_id");
-
-                    b.ToTable("card_items", (string)null);
-                });
 
             modelBuilder.Entity("e_shop.Domain.Entities.Category", b =>
                 {
@@ -320,39 +268,6 @@ namespace e_shop.DataAccess.Migrations
                     b.ToTable("products", (string)null);
                 });
 
-            modelBuilder.Entity("e_shop.Domain.Entities.Card", b =>
-                {
-                    b.HasOne("e_shop.Domain.Entities.Customer", "Customers")
-                        .WithMany()
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_cards_customers_customer_id");
-
-                    b.Navigation("Customers");
-                });
-
-            modelBuilder.Entity("e_shop.Domain.Entities.CardItem", b =>
-                {
-                    b.HasOne("e_shop.Domain.Entities.Card", "Cards")
-                        .WithMany("CardItems")
-                        .HasForeignKey("CardID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_card_items_cards_card_id");
-
-                    b.HasOne("e_shop.Domain.Entities.Product", "Products")
-                        .WithMany()
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_card_items_products_product_id");
-
-                    b.Navigation("Cards");
-
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("e_shop.Domain.Entities.CustomerAddress", b =>
                 {
                     b.HasOne("e_shop.Domain.Entities.Customer", "Customers")
@@ -363,11 +278,6 @@ namespace e_shop.DataAccess.Migrations
                         .HasConstraintName("fk_customer_addresses_customers_customer_id");
 
                     b.Navigation("Customers");
-                });
-
-            modelBuilder.Entity("e_shop.Domain.Entities.Card", b =>
-                {
-                    b.Navigation("CardItems");
                 });
 
             modelBuilder.Entity("e_shop.Domain.Entities.Customer", b =>
