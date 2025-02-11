@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 namespace e_shop.Domain.Entities;
 public class Tag
 {
+    public Tag()
+    {
+        ProductTags = new List<ProductTag>();
+    }
     public int TagID { get; set; }
     public string TagName { get; set; }
     public string Icon { get; set; }
@@ -14,5 +18,6 @@ public class Tag
     public DateTime UpdatedAt { get; set; }
     public int CreatedBy { get; set; }
     public int UpdatedBy { get; set; }
+    public ICollection<ProductTag> ProductTags { get; set; }
 }
 

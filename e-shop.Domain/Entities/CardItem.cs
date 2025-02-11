@@ -14,12 +14,12 @@ public class CardItem
     [Required]
     [ForeignKey(nameof(Card))]
     public int CardID { get; set; }
-    public Card Cards { get; set; }
     [Required]
     [ForeignKey(nameof(Product))]
     public int ProductID { get; set; }
-    public Product Products { get; set; }
     [Required]
     public int Quantity { get; set; }
+    public Card Cards { get; set; }
+    public Product Products { get; set; }
 }
 

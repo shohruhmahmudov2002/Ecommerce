@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using e_shop.DataAccess;
@@ -11,9 +12,11 @@ using e_shop.DataAccess;
 namespace e_shop.DataAccess.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20250211113947_ModelCreating")]
+    partial class ModelCreating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -345,68 +348,6 @@ namespace e_shop.DataAccess.Migrations
                     b.ToTable("product_category", (string)null);
                 });
 
-            modelBuilder.Entity("e_shop.Domain.Entities.ProductTag", b =>
-                {
-                    b.Property<int>("ProductID")
-                        .HasColumnType("integer")
-                        .HasColumnName("product_id");
-
-                    b.Property<int>("TagID")
-                        .HasColumnType("integer")
-                        .HasColumnName("tag_id");
-
-                    b.HasKey("ProductID", "TagID")
-                        .HasName("pk_product_tag");
-
-                    b.HasIndex("TagID")
-                        .HasDatabaseName("ix_product_tag_tag_id");
-
-                    b.ToTable("product_tag", (string)null);
-                });
-
-            modelBuilder.Entity("e_shop.Domain.Entities.Tag", b =>
-                {
-                    b.Property<int>("TagID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("tag_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TagID"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer")
-                        .HasColumnName("created_by");
-
-                    b.Property<string>("Icon")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar")
-                        .HasColumnName("icon");
-
-                    b.Property<string>("TagName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar")
-                        .HasColumnName("tag_name");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
-
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("integer")
-                        .HasColumnName("updated_by");
-
-                    b.HasKey("TagID")
-                        .HasName("pk_tags");
-
-                    b.ToTable("tags", (string)null);
-                });
-
             modelBuilder.Entity("e_shop.Domain.Entities.Card", b =>
                 {
                     b.HasOne("e_shop.Domain.Entities.Customer", "Customers")
@@ -473,27 +414,6 @@ namespace e_shop.DataAccess.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("e_shop.Domain.Entities.ProductTag", b =>
-                {
-                    b.HasOne("e_shop.Domain.Entities.Product", "Products")
-                        .WithMany("ProductTags")
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_product_tag_products_product_id");
-
-                    b.HasOne("e_shop.Domain.Entities.Tag", "Tags")
-                        .WithMany("ProductTags")
-                        .HasForeignKey("TagID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_product_tag_tags_tag_id");
-
-                    b.Navigation("Products");
-
-                    b.Navigation("Tags");
-                });
-
             modelBuilder.Entity("e_shop.Domain.Entities.Card", b =>
                 {
                     b.Navigation("CardItems");
@@ -512,13 +432,6 @@ namespace e_shop.DataAccess.Migrations
             modelBuilder.Entity("e_shop.Domain.Entities.Product", b =>
                 {
                     b.Navigation("ProductCategories");
-
-                    b.Navigation("ProductTags");
-                });
-
-            modelBuilder.Entity("e_shop.Domain.Entities.Tag", b =>
-                {
-                    b.Navigation("ProductTags");
                 });
 #pragma warning restore 612, 618
         }

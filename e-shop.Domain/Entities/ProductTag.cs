@@ -9,5 +9,8 @@ public class ProductTag
 {
     public int TagID { get; set; }
     public int ProductID { get; set; }
+
+    public Tag Tags { get; set; }
+    public Product Products { get; set; }
 }
 

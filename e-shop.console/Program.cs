@@ -130,11 +130,13 @@ internal class Program
         //cardSpecial.CustomerID = 2;
         //service4.SaveChanges();
 
-        var cards = service4.GetCards();
-        foreach (var card in cards)
-        {
-            Console.WriteLine($"{card.CardID} - {card.CustomerID}");
-        }
+        //var cards = service4.GetCards();
+        //foreach (var card in cards)
+        //{
+        //    Console.WriteLine($"{card.CardID} - {card.CustomerID}");
+        //}
+
+
         Console.Read();
     }
 }

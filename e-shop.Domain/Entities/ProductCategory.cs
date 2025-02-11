@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,5 +10,8 @@ public class ProductCategory
 {
     public int CategoryID { get; set; }
     public int ProductID { get; set; }
+
+    public Category Categories { get; set; }
+    public Product Products { get; set; }
 }
 
