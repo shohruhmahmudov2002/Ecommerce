@@ -15,7 +15,7 @@ public class CustomerAddress
     [ForeignKey(nameof(Customer))]
     public int CustomerID { get; set; }
     
-    public Customer Customers {  get; set; }
+    public virtual Customer Customers {  get; set; }
     [Required]
     public string AddressLine1 { get; set; }
     [Required]

@@ -22,6 +22,10 @@ public class ProductTagService
     {
         await _context.Products.AddAsync(product);
     }
+    public async Task AddProductTag(ProductTag productTag)
+    {
+        await _context.ProductTags.AddAsync(productTag);
+    }
 
     public IEnumerable<Product> GetProduct()
     {

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using e_shop.DataAccess;
@@ -11,38 +12,18 @@ using e_shop.DataAccess;
 namespace e_shop.DataAccess.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20250213090353_AddedPTandPC")]
+    partial class AddedPTandPC
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.1")
-                .HasAnnotation("Proxies:ChangeTracking", false)
-                .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("CategoryProduct", b =>
-                {
-                    b.Property<int>("CategoriesCategoryID")
-                        .HasColumnType("integer")
-                        .HasColumnName("categories_category_id");
-
-                    b.Property<int>("ProductsProductID")
-                        .HasColumnType("integer")
-                        .HasColumnName("products_product_id");
-
-                    b.HasKey("CategoriesCategoryID", "ProductsProductID")
-                        .HasName("pk_category_product");
-
-                    b.HasIndex("ProductsProductID")
-                        .HasDatabaseName("ix_category_product_products_product_id");
-
-                    b.ToTable("category_product", (string)null);
-                });
 
             modelBuilder.Entity("e_shop.Domain.Entities.Card", b =>
                 {
@@ -53,25 +34,9 @@ namespace e_shop.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CardID"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer")
-                        .HasColumnName("created_by");
-
                     b.Property<int>("CustomerID")
                         .HasColumnType("integer")
                         .HasColumnName("customer_id");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
-
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("integer")
-                        .HasColumnName("updated_by");
 
                     b.HasKey("CardID")
                         .HasName("pk_cards");
@@ -95,14 +60,6 @@ namespace e_shop.DataAccess.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("card_id");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer")
-                        .HasColumnName("created_by");
-
                     b.Property<int>("ProductID")
                         .HasColumnType("integer")
                         .HasColumnName("product_id");
@@ -110,14 +67,6 @@ namespace e_shop.DataAccess.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")
                         .HasColumnName("quantity");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
-
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("integer")
-                        .HasColumnName("updated_by");
 
                     b.HasKey("CardItemID")
                         .HasName("pk_card_items");
@@ -152,10 +101,8 @@ namespace e_shop.DataAccess.Migrations
                         .HasColumnName("category_name");
 
                     b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnName("created_at");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("integer")
@@ -182,10 +129,8 @@ namespace e_shop.DataAccess.Migrations
                         .HasColumnName("parent_id");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnName("updated_at");
 
                     b.Property<int>("UpdatedBy")
                         .HasColumnType("integer")
@@ -195,22 +140,6 @@ namespace e_shop.DataAccess.Migrations
                         .HasName("pk_categories");
 
                     b.ToTable("categories", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryID = 4,
-                            CategoryDescription = "All kinds of electronic items",
-                            CategoryName = "Cars",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 2,
-                            Icon = "electronics-icon.png",
-                            ImagePath = "images/electronics.png",
-                            IsActive = true,
-                            ParentID = 2,
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedBy = 2
-                        });
                 });
 
             modelBuilder.Entity("e_shop.Domain.Entities.Customer", b =>
@@ -225,10 +154,6 @@ namespace e_shop.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("integer")
-                        .HasColumnName("created_by");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -265,14 +190,6 @@ namespace e_shop.DataAccess.Migrations
                     b.Property<DateTime>("RegisteredAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("registered_at");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
-
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("integer")
-                        .HasColumnName("updated_by");
 
                     b.HasKey("CustomerID")
                         .HasName("pk_customers");
@@ -342,10 +259,8 @@ namespace e_shop.DataAccess.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductID"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnName("created_at");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("integer")
@@ -401,10 +316,8 @@ namespace e_shop.DataAccess.Migrations
                         .HasColumnName("short_description");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnName("updated_at");
 
                     b.Property<int>("UpdatedBy")
                         .HasColumnType("integer")
@@ -414,26 +327,25 @@ namespace e_shop.DataAccess.Migrations
                         .HasName("pk_products");
 
                     b.ToTable("products", (string)null);
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            ProductID = 4,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 2,
-                            DiscountPrice = 80.00m,
-                            ProductDescription = "Detailed description of the product",
-                            ProductName = "Banana",
-                            ProductNote = "Special note about the product",
-                            ProductWeight = 1.5m,
-                            Published = true,
-                            Quantity = 10,
-                            RegularPrice = 100.00m,
-                            SKU = "55555",
-                            ShortDescription = "Short description of the product",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedBy = 2
-                        });
+            modelBuilder.Entity("e_shop.Domain.Entities.ProductCategory", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("integer")
+                        .HasColumnName("category_id");
+
+                    b.HasKey("ProductID", "CategoryID")
+                        .HasName("pk_product_categories");
+
+                    b.HasIndex("CategoryID")
+                        .HasDatabaseName("ix_product_categories_category_id");
+
+                    b.ToTable("product_categories", (string)null);
                 });
 
             modelBuilder.Entity("e_shop.Domain.Entities.ProductTag", b =>
@@ -498,23 +410,6 @@ namespace e_shop.DataAccess.Migrations
                     b.ToTable("tags", (string)null);
                 });
 
-            modelBuilder.Entity("CategoryProduct", b =>
-                {
-                    b.HasOne("e_shop.Domain.Entities.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesCategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_category_product_categories_categories_category_id");
-
-                    b.HasOne("e_shop.Domain.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_category_product_products_products_product_id");
-                });
-
             modelBuilder.Entity("e_shop.Domain.Entities.Card", b =>
                 {
                     b.HasOne("e_shop.Domain.Entities.Customer", "Customers")
@@ -560,6 +455,27 @@ namespace e_shop.DataAccess.Migrations
                     b.Navigation("Customers");
                 });
 
+            modelBuilder.Entity("e_shop.Domain.Entities.ProductCategory", b =>
+                {
+                    b.HasOne("e_shop.Domain.Entities.Category", "Categories")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_categories_categories_category_id");
+
+                    b.HasOne("e_shop.Domain.Entities.Product", "Products")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_categories_products_product_id");
+
+                    b.Navigation("Categories");
+
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("e_shop.Domain.Entities.ProductTag", b =>
                 {
                     b.HasOne("e_shop.Domain.Entities.Product", "Products")
@@ -586,6 +502,11 @@ namespace e_shop.DataAccess.Migrations
                     b.Navigation("CardItems");
                 });
 
+            modelBuilder.Entity("e_shop.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("ProductCategories");
+                });
+
             modelBuilder.Entity("e_shop.Domain.Entities.Customer", b =>
                 {
                     b.Navigation("CustomerAddresses");
@@ -593,6 +514,8 @@ namespace e_shop.DataAccess.Migrations
 
             modelBuilder.Entity("e_shop.Domain.Entities.Product", b =>
                 {
+                    b.Navigation("ProductCategories");
+
                     b.Navigation("ProductTags");
                 });
 

@@ -11,7 +11,7 @@ public class ProductCategory
     public int CategoryID { get; set; }
     public int ProductID { get; set; }
 
-    public Category Categories { get; set; }
-    public Product Products { get; set; }
+    public virtual Category Categories { get; set; }
+    public virtual Product Products { get; set; }
 }
 

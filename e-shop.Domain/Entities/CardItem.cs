@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace e_shop.Domain.Entities;
-public class CardItem
+public class CardItem : IAuditable
 {
     [Key]
     public int CardItemID { get; set; }
@@ -19,7 +19,11 @@ public class CardItem
     public int ProductID { get; set; }
     [Required]
     public int Quantity { get; set; }
-    public Card Cards { get; set; }
-    public Product Products { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
+    public int CreatedBy { get; set; }
+    public int UpdatedBy { get; set; }
+    public virtual Card Cards { get; set; }
+    public virtual Product Products { get; set; }
 }
 

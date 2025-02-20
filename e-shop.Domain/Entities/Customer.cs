@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace e_shop.Domain.Entities;
-public class Customer
+public class Customer : IAuditable
 {
     public Customer()
     {
@@ -27,6 +27,9 @@ public class Customer
     public bool IsActive { get; set; }
     public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
     public DateTime CreatedAt { get; set; }
-    public ICollection<CustomerAddress> CustomerAddresses { get; set; }
+    public DateTime UpdatedAt { get; set; }
+    public int CreatedBy { get; set; }
+    public int UpdatedBy { get; set; }
+    public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
 }
 

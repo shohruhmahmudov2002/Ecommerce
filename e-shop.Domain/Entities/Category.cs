@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace e_shop.Domain.Entities;
-public class Category
+public class Category : IAuditable
 {
     public Category()
     {
-        ProductCategories = new List<ProductCategory>();
+        Products = new List<Product>();
     }
     public int CategoryID { get; set; }
     public int ParentID { get; set; }
@@ -25,6 +25,6 @@ public class Category
     public int CreatedBy { get; set; }
     public int UpdatedBy { get; set; }
 
-    public ICollection<ProductCategory> ProductCategories { get; set; }
+    public virtual ICollection<Product> Products { get; set; }
 }
 
